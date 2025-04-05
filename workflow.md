@@ -54,14 +54,10 @@ graph TD
 
 ### 📦 1. Clone the Repository
 
-```bash
-git clone https://github.com/immehulsolanki/ai-people-couter-python.git
-cd ai-people-couter-python
-```
 
 ---
 
-### 🧠 2. Download & Prepare Model
+### 🧠 1. Download & Prepare Model
 
 #### Option A: Intel Pretrained Model
 
@@ -84,7 +80,7 @@ python mo.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_ope
 
 ---
 
-### 🔧 3. Install Dependencies
+### 🔧 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -98,7 +94,7 @@ pip install opencv-python openvino
 
 ---
 
-### 📁 4. Prepare Input Source
+### 📁 3. Prepare Input Source
 
 Place your:
 - Video/Image in `./resources/`
@@ -106,7 +102,7 @@ Place your:
 
 ---
 
-### ▶️ 5. Run the App
+### ▶️ 4. Run the App
 
 ```bash
 python inference_local.py -m path_to_model.xml -i input_source -d CPU
@@ -125,7 +121,7 @@ Arguments:
 
 ---
 
-### 📊 6. Output & Stats
+### 📊 5. Output & Stats
 
 - Live video with bounding boxes
 - Person count & dwell time per frame
@@ -133,7 +129,7 @@ Arguments:
 
 ---
 
-### ⚙️ 7. Tune Parameters (Optional)
+### ⚙️ 6. Tune Parameters (Optional)
 
 Adjust in `inference_local.py`:
 - FPS
