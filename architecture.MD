@@ -1,40 +1,54 @@
 ```mermaid
-graph TD
-    %% Input Section
-    subgraph Input
-        A1[Single Image]
-        A2[Local Video]
-        A3[Webcam Feed]
+graph LR
+    A[Input Video Stream] --> B(Human Detection);
+    B --> C{People Tracking};
+    C --> D[Counting Logic];
+    D --> E{Output};
+
+    subgraph Human Detection
+        B1[OpenCV];
+        B2[HOG Descriptor/DNN Model];
+        B --> B1;
+        B --> B2;
     end
 
-    %% Processing Section
-    subgraph Processing
-        B1[OpenCV]
-        B2[OpenVINO Inference Engine]
+    subgraph People Tracking
+        C1[Centroid Tracking / DeepSORT];
+        C --> C1;
     end
 
-    %% Output Section
     subgraph Output
-        C1[Live Feed Display]
-        C2[Detection Results]
-        C3[Statistics: Count & Duration]
+        E1[Console / CSV File];
+        E2[Visualization];
+        E --> E1;
+        E --> E2;
     end
 
-    %% Web Interface Section
-    subgraph Web Interface
-        D1[User Controls]
-        D2[Visualization]
-    end
+    style A fill:#90EE90,stroke:#333,stroke-width:2px
+    style B fill:#87CEFA,stroke:#333,stroke-width:2px
+    style C fill:#FFFFE0,stroke:#333,stroke-width:2px
+    style D fill:#87CEFA,stroke:#333,stroke-width:2px
+    style E fill:#90EE90,stroke:#333,stroke-width:2px
+    style B1 fill:#E0FFFF,stroke:#333,stroke-width:1px
+    style B2 fill:#E0FFFF,stroke:#333,stroke-width:1px
+    style C1 fill:#E0FFFF,stroke:#333,stroke-width:1px
+    style E1 fill:#E0FFFF,stroke:#333,stroke-width:1px
+    style E2 fill:#E0FFFF,stroke:#333,stroke-width:1px
 ```
-    %% Flow connectors (for vertical alignment)
-    A1 --> B1
-    A2 --> B1
-    A3 --> B1
-    B1 --> B2
-    B2 --> C1
-    B2 --> C2
-    B2 --> C3
-    C1 --> D2
-    C2 --> D2
-    C3 --> D2
-    D1 --> D2
+
+
+Main Process
+
+Initialize the IE Plugin: The system begins by initializing the Inference Engine (IE) Plugin for the target device. This plugin is essential for running the model inference.
+Load IR to the Plugin: The Intermediate Representation (IR) of the trained model is loaded into the IE Plugin. The IR is a model representation optimized for inference.
+Capture Frames from the Input: The system captures frames from the input source, which could be a camera or a video file.
+Execute the SSD Model: The Single Shot MultiBox Detector (SSD) model is executed on each frame to detect people present in the frame.
+Draw Bounding Boxes: Bounding boxes are drawn around the detected people in the frame to visually mark the detection.
+Calculate People Count and Duration: The system calculates the people count in the current frame, the total people count, and the duration each person is present in the frame.
+Communication with Mosca Server
+
+The system subscribes to people count in the current frame, total people count, and person duration and sends this information to the Mosca Server.
+Communication with UI
+
+FFmpeg: Every frame from the input is sent to the User Interface (UI) via FFmpeg, likely for real-time video display.
+UI: The UI displays the output on a web interface. This includes the video feed and the people count information received from the Mosca Server.
