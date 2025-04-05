@@ -24,15 +24,16 @@ graph TD
 ```
 
 ```mermaid
-    A1 -->|Input| B1
-    A2 -->|Input| B1
-    A3 -->|Input| B1
-    B1 -->|Frame Processing| B2
-    B2 -->|Inference Results| C1
-    B2 -->|Inference Results| C2
-    B2 -->|Inference Results| C3
-    C1 -->|Display| D2
-    C2 -->|Display| D2
-    C3 -->|Display| D2
-    D1 -->|User Interaction| D2
+graph TD
+    A1[Single Image] --> B1[OpenCV]
+    A2[Local Video] --> B1
+    A3[Webcam Feed] --> B1
+    B1 --> B2[OpenVINO Inference Engine]
+    B2 --> C1[Live Feed Display]
+    B2 --> C2[Detection Results]
+    B2 --> C3[Statistics: Count & Duration]
+    C1 --> D2[Web Interface: Visualization]
+    C2 --> D2
+    C3 --> D2
+    D1[User Controls] --> D2
 ```
