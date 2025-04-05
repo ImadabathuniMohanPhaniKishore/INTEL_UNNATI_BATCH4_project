@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     subgraph Input
         A1[Single Image]
@@ -20,7 +21,7 @@ graph TD
         D1[User Controls]
         D2[Visualization]
     end
-
+```
     A1 -->|Input| B1
     A2 -->|Input| B1
     A3 -->|Input| B1
