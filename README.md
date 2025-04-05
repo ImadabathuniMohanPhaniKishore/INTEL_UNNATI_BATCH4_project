@@ -22,6 +22,8 @@ graph TD
         D2[Visualization]
     end
 ```
+
+```mermaid
     A1 -->|Input| B1
     A2 -->|Input| B1
     A3 -->|Input| B1
@@ -33,3 +35,4 @@ graph TD
     C2 -->|Display| D2
     C3 -->|Display| D2
     D1 -->|User Interaction| D2
+```
